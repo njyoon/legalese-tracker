@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Legalese Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+    <style>
+      body{
+      background-color:#fcfcfc;
+      }
+      h1 {
+      color:#f55d4b;
+      font-size:3rem;
+      font-weight:bold;
+      }
+      h1 a, h1 a:hover {
+      color:#f55d4b;
+      }
+      h2 {
+      color:#f55d4b;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container pt-4">
+      <h1><a href = "./index.html">Legalese Tracker</a></h1>
+      <h2>Frequency of court opinions containing the word "heretofore" since 2010</h2>
+
+      <div class = "row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pt-5">
+            <div id="info" class="shadow card" style="max-height:650px">
+                <h4 id="info-title" class="card-title pt-4 px-4"></h4>
+                <h5 id="info-subtitle" class="card-subtitle mb-2 text-muted px-4 pb-2">Click on the map for more information</h5>
+                <ol id="info-list" class="card-text overflow-auto font-weight-bold pb-4">
+                </ol>
+            </div>
+        </div>
+        <div id="map" class="col-lg-9 col-md-12 col-sm-12 col-xs-12"></div>
+
+      </div>
+
+      <p class="pt-4">
+        Data from
+        <a
+          href="https://api.case.law"
+          >api.case.law</a
+        >
+        <br>
+        Includes cases published through June 2018.
+      </p>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.0.0/fetch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="js/jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="js/jquery-jvectormap-us-aea.js"></script>
+    <script src="js/cases.js"></script>
+    <script src="js/states.js"></script>
+    <script src="js/app.js"></script>
+
+  </body>
+</html>
