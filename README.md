@@ -1,4 +1,4 @@
-# legalese-tracker
+# (Legalese Tracker)[https://njyoon.github.io]
 This website tracks the frequency of court opinions containing the word "heretofore" since 2010.  I wanted to create this map after seeing [a similar usage map](https://case.law/gallery/witchcraft) tracking the appearance of the word "witchcraft" in the Gallery section of the Caselaw Access Project.  I was curious to see if I could create something similar using the CAP API with my limited programming skills.
 
 After polling law librarians on "legalese" terms they disliked, I decided on "heretofore" because of its common usage in legal case opinions and because it was a simple concept that could be expressed in much simpler words (e.g., "until now", "up to this point", "previously").
