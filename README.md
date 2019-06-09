@@ -26,22 +26,96 @@ var caselawAPI =
 ```javascript
   data.results.forEach((opinion) => {resultsArray.push(opinion)});
 ```
-... and repeated the process until I'd gotten all the cases.
+... and repeated the process with the next batch of cases until I'd gotten all the cases.
 ```javascript
- if (data.next != null) {  // If there are more results
+ if (data.next != null) {  
 
-    caselawAPI = data.next;  // Change the API endpoint to the next batch of 100 results
+    caselawAPI = data.next;  
 
-    fetch(caselawAPI)  // Repeat process
+    fetch(caselawAPI) 
       .then(parseAsJSON)
       .then(convertJSON)
       .catch(handleError);
 
-} else {  // If there aren't more results
-    console.log(resultsArray);  // Output the array to console so I can save the fetched results.  
+} else { 
+    console.log(resultsArray);  
 }
 ```
+Finally, I saved the resulting array into a [javascript file](https://github.com/njyoon/legalese-tracker/blob/master/js/cases.js) I could refer to in the website.
 
+## Step 2: Rendering the Map
+After finding a great, open-source javascript map library/plugin in [JVectorMap](http://jvectormap.com/), I set up [an array of "state" objects](https://github.com/njyoon/legalese-tracker/blob/master/js/states.js) with properties that would let me link the states on the map to the jurisdictions from the cases.
 
+```javascript
+var states = [
+    {
+        "slug": "ala",
+        "name_long": "Alabama",
+        "count": 0,
+        "corpus": 9476,
+        "opinions": [],
+        "code": "US-AL"
+    },
+    {
+        "slug": "alaska",
+        "name_long": "Alaska",
+        "count": 0,
+        "corpus": 1116,
+        "opinions": [],
+        "code": "US-AK"
+    },
+    // ... and so on
+```
 
+In [app.js](https://github.com/njyoon/legalese-tracker/blob/master/js/app.js), I populated the "count" and "opinions" properties of the "states" array with the cases I'd fetched.
+```javascript
+CASES.forEach((opinion) => {
+    states.forEach((state) => {
+        if (opinion.jurisdiction.slug == state.slug) {
+            state.count++;
+            state.opinions.push(opinion);
+        }
+    });
+});
+```
 
+By dividing the count (i.e., the number of cases in each state since 2010 containing the word "heretofore") by the corpus (i.e., the total number of cases in each state since 2010), I could get the frequency for each state.
+```javascript
+var stateData = {
+    "US-AL": (states[0].count * 100 / states[0].corpus),
+    "US-AK": (states[1].count * 100 / states[1].corpus),
+    "US-AZ": (states[2].count * 100 / states[2].corpus),
+    "US-AR": (states[3].count * 100 / states[3].corpus),
+    // ... and so on
+```
+With this data, I could render the map using the jVectorMap library.
+```javascript
+$(function(){
+    $('#map').vectorMap({
+
+        map: 'us_aea',
+
+        series: {
+            regions: [{
+              values: stateData,
+              scale: ['#e6eeff', '#002b80'], 
+              normalizeFunction: 'linear',
+            }]
+        },
+```
+
+## Step 3: Rendering the Card
+To populate the left-hand card initially, I sorted the states by frequency and used HTML DOM to add the information to the card.
+```javascript
+arr.sort((a,b) => {return (b.count / b.corpus) - (a.count / a.corpus)});
+
+arr.forEach((state) => {
+    var node = document.createElement("li");
+    node.classList.add("py-2");
+    node.classList.add("pl-2");
+    node.classList.add("pr-3");
+
+    node.textContent = state.name_long + " | " + (state.count * 100 / state.corpus).toFixed(2) + "%";
+    list.appendChild(node);
+});
+```
