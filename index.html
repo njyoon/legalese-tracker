@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="css/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
     <style>
+      head{height:100%}
       body{
       background-color:#fcfcfc;
       }
@@ -27,6 +28,12 @@
       h2 {
       color:#f55d4b;
       }
+      @media only screen and (max-width:768px) {
+        #map {
+          height:400px;
+        }
+      }
+
     </style>
   </head>
 
@@ -36,7 +43,7 @@
       <h2>Frequency of court opinions containing the word "heretofore" since 2010</h2>
 
       <div class = "row">
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pt-5">
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5">
             <div id="info" class="shadow card" style="max-height:650px">
                 <h4 id="info-title" class="card-title pt-4 px-4"></h4>
                 <h5 id="info-subtitle" class="card-subtitle mb-2 text-muted px-4 pb-2">Click on the map for more information</h5>
@@ -44,7 +51,8 @@
                 </ol>
             </div>
         </div>
-        <div id="map" class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="width:100%; min-width:320px; min-height:320px;"></div>
+        <div id="map" class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
+        </div>
 
       </div>
 
